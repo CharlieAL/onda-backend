@@ -1,0 +1,22 @@
+terminado ✅
+pendiente 😩
+en proceso 🚧
+
+eventos 🚧
+  -crear eventos con el id del usuario y el id de la empresa 🚧
+    -el usuario debe tener permiso para crear eventos "role":"company" y debe tener una empresa
+  -editar eventos con el id del usuario y el id de la empresa
+    -el usuario debe tener permiso para editar eventos "role":"company"
+  -cambiar el status de "open"/"close" de los eventos
+  -crear los likes de los eventos y los dislikes
+  -crear los comentarios de los eventos
+  -crear para asistir a los eventos
+
+worker 😩
+  -la empresa puede crear un worker
+    -enviar la invitacion al worker
+    -el worker debe aceptar la invitacion
+    -el worker puede crear eventos
+  -el worker puede scannear a los usuarios para ver si tienen el boleto de entrada del evento
+
+
