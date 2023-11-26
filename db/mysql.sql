@@ -130,6 +130,14 @@ CREATE TABLE events (
 
 -- drop table user_event;
 
+CREATE TABLE messages (
+  id int auto_increment primary key,
+  de varchar(80) not null,
+  para varchar(80) not null,
+  mensaje varchar(255) not null,
+  created_at timestamp not null default (now()),
+)
+
 CREATE TABLE user_event (
     user_event_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,

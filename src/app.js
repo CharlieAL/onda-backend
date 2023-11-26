@@ -14,7 +14,8 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 import dotenv from 'dotenv'
-import { comprobarJWT } from './libs/jwt.js'
+import socket from './sockets/socket.js'
+// import { comprobarJWT } from './libs/jwt.js'
 
 dotenv.config()
 
@@ -42,34 +43,6 @@ const io = new SocketServer(server, {
   }
 })
 
-io.on('connection', (client) => {
-  console.log('Cliente conectado')
-  const uid = client.handshake.query.uid
-  console.log(uid)
-
-  // Verificar autenticación
-  if (!uid) {
-    return client.disconnect()
-  }
-
-  // Cliente autenticado
-  //  userConnected(uid)
-
-  // Ingresar al usuario a una sala en particular
-  // sala global, client.id, 5f298534ad4169714548b785
-  client.join(uid)
-
-  // Escuchar del cliente el mensaje-personal
-  client.on('mensaje-personal', async (payload) => {
-    // TODO: Grabar mensaje
-    //  await saveMessage(payload)
-    console.log(payload)
-    io.to(payload.para).emit('mensaje-personal', payload)
-  })
-
-  client.on('disconnect', () => {
-    //  userDisconnected(uid)
-  })
-})
+socket(io)
 
 export default server

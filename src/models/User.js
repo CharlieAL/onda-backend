@@ -173,4 +173,26 @@ export class UserModel {
       console.error('Error UserModel.getMyFriends():', error)
     }
   }
+
+  static async saveMessage(payload) {
+    try {
+      const { sql, values } = createQuerySql('messages', payload)
+      const [newMessage] = await pool.query(sql, values)
+      return newMessage.insertId
+    } catch (error) {
+      console.error('Error UserModel.saveMessage():', error)
+    }
+  }
+
+  static async getMessages(idUser, idFriend) {
+    try {
+      const [messages] = await pool.query(
+        'SELECT * FROM messages WHERE (de = ? AND para = ?) OR (de = ? AND para = ?) ORDER BY created_at ASC',
+        [idUser, idFriend, idFriend, idUser]
+      )
+      return messages
+    } catch (error) {
+      console.error('Error UserModel.getMessages():', error)
+    }
+  }
 }

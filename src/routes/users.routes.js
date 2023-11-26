@@ -149,4 +149,15 @@ router.put('/reject-friend-request/:id', authRequired, async (req, res) => {
   }
 })
 
+router.get('/messages/:friend', authRequired, async (req, res) => {
+  try {
+    const { user_id: userId } = req.user
+    const { friend } = req.params
+    const result = await UserModel.getMessages(userId, friend)
+    res.json(result)
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' })
+  }
+})
+
 export default router
