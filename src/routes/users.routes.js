@@ -45,7 +45,7 @@ router.put('/update/:id', authRequired, async (req, res) => {
 })
 
 router.get('/verify-token', async (req, res) => {
-  const { token } = req.cookies
+  const token = req.header('Authorization')
   if (!token) {
     return res.status(401).json({ error: 'Token is required' })
   }

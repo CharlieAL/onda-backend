@@ -48,7 +48,9 @@ export const signup = async (req, res) => {
       secure: true
     })
 
-    res.status(201).json({ payload, message: 'User created successfully' })
+    res
+      .status(201)
+      .json({ payload, message: 'User created successfully', token })
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
@@ -98,7 +100,9 @@ export const signin = async (req, res) => {
       sameSite: 'none',
       secure: true
     })
-    res.status(201).json({ payload, message: 'User logged successfully' })
+    res
+      .status(201)
+      .json({ payload, message: 'User logged successfully', token })
   } catch (error) {
     res.status(400).json({ error: error.message.toString() })
   }
