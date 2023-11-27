@@ -64,12 +64,12 @@ router.post('/signup', signup)
 
 router.post('/signout', authRequired, signout)
 
-router.patch(
+router.put(
   '/give-permission-by-create-company/:idUser',
   authRequired,
   givePermissionByCreateCompany
 )
-router.patch(
+router.put(
   '/remove-permission-by-create-company/:idUser',
   authRequired,
   removePermissionByCreateCompany
@@ -155,6 +155,29 @@ router.get('/messages/:friend', authRequired, async (req, res) => {
     const { friend } = req.params
     const result = await UserModel.getMessages(userId, friend)
     res.json(result)
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' })
+  }
+})
+
+router.get('/permissions', authRequired, async (req, res) => {
+  try {
+    const { role } = req.user
+    if (role !== 'admin') {
+      return res.status(401).json({ message: 'Unauthorized' })
+    }
+    const result = await UserModel.getAllPermissions()
+    res.json(result)
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' })
+  }
+})
+
+router.post('/permissions/:id', authRequired, async (req, res) => {
+  try {
+    const { id } = req.params
+    await UserModel.createPermission(id)
+    res.json({ message: 'Permission created successfully' })
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' })
   }

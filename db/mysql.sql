@@ -199,6 +199,14 @@ CREATE TABLE worker(
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
+CREATE TABLE permissions(
+    id int auto_increment primary key,
+    user_id int not null,
+    create_at timestamp not null default (now()),
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    CONSTRAINT uc_user UNIQUE (user_id)
+);
+
 DELIMITER $$
 CREATE TRIGGER increment_likes_company
 	AFTER INSERT ON likes_company

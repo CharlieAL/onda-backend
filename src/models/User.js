@@ -195,4 +195,24 @@ export class UserModel {
       console.error('Error UserModel.getMessages():', error)
     }
   }
+
+  static async createPermission(idUser) {
+    try {
+      await pool.query('INSERT INTO permissions (user_id) VALUES (?)', [idUser])
+    } catch (error) {
+      console.error('Error UserModel.createPermission():', error)
+      throw new Error(error.sqlMessage || 'Error creating permission')
+    }
+  }
+
+  static async getAllPermissions() {
+    try {
+      const [permissions] = await pool.query(
+        'SELECT users.*, permissions.id AS pid, permissions.create_at AS pcreated_at FROM users INNER JOIN permissions ON users.user_id = permissions.user_id; '
+      )
+      return permissions
+    } catch (error) {
+      console.error('Error UserModel.getAllPermissions():', error)
+    }
+  }
 }
