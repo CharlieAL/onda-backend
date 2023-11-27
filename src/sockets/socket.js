@@ -2,8 +2,8 @@ import { UserModel } from '../models/User.js'
 
 const socket = (io) => {
   io.on('connection', (client) => {
-    console.log('Cliente conectado')
     const uid = client.handshake.query.uid
+    console.log('Cliente conectado' + uid)
 
     // Verificar autenticación
     if (uid === 'undefined') {
