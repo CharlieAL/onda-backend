@@ -32,8 +32,7 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(
   cookieParser({
-    sameSite: 'none',
-    secure: true
+    sameSite: 'none'
   })
 )
 
