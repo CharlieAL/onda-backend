@@ -23,7 +23,7 @@ const app = express()
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://onda-lg0stnisi-charlieal.vercel.app',
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT'],
     credentials: true
   })
@@ -39,7 +39,7 @@ app.use('/api/company', companiesRouter)
 const server = http.createServer(app)
 const io = new SocketServer(server, {
   cors: {
-    origin: 'http://localhost:5173'
+    origin: 'https://onda-lg0stnisi-charlieal.vercel.app'
   }
 })
 
