@@ -30,7 +30,12 @@ app.use(
 )
 app.use(morgan('dev'))
 app.use(express.json())
-app.use(cookieParser())
+app.use(
+  cookieParser({
+    sameSite: 'none',
+    secure: true
+  })
+)
 
 app.use('/api/users', usersRouter)
 app.use('/api/events', eventsRouter)
