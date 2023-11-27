@@ -42,7 +42,11 @@ export const signup = async (req, res) => {
       role: checkedUser.role
     }
     const token = await creteAccessToken(payload)
-    res.cookie('token', token)
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true
+    })
 
     res.status(201).json({ payload, message: 'User created successfully' })
   } catch (error) {
@@ -89,7 +93,11 @@ export const signin = async (req, res) => {
       role: userFromDB.role
     }
     const token = await creteAccessToken(payload)
-    res.cookie('token', token, { httpOnly: true })
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true
+    })
     res.status(201).json({ payload, message: 'User logged successfully' })
   } catch (error) {
     res.status(400).json({ error: error.message.toString() })
@@ -98,7 +106,11 @@ export const signin = async (req, res) => {
 
 export const signout = async (req, res) => {
   console.log(req.user)
-  res.clearCookie('token')
+  res.clearCookie('token', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true
+  })
   res.status(200).json({ message: 'User logged out successfully' })
 }
 
